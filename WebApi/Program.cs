@@ -3,6 +3,7 @@ using Application.Servers;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using WebApi.Middlewares;
 
@@ -22,7 +23,9 @@ builder.Host.UseSerilog((_, loggerConfiguration) => loggerConfiguration
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<AppDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeReposiyory>();
 builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();

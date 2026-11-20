@@ -1,0 +1,26 @@
+# Build output
+**/[Bb]in/
+**/[Oo]bj/
+
+# Visual Studio and JetBrains
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core
+**/logs/
+*.log
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+appsettings.*.json
+appsettings.json
+!appsettings.Example.json
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
